@@ -1,24 +1,29 @@
 ﻿@model Service
-<div class="container">
-    <div class="row">
-        <form method="post" asp-controller="Service" asp-action="Create">
-            <div class="form-group">
-                <label for="formGroupExampleInput">Title</label>
-                <input class="form-control" id="formGroupExampleInput" asp-for="Title" placeholder="Enter slider Title">
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="formGroupExampleInput2">Description</label>
-                <input class="form-control" id="formGroupExampleInput2" asp-for="Description" placeholder="Enter slider Description">
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="formGroupExampleInput3">Image Url</label>
-                <input class="form-control" id="formGroupExampleInput3" asp-for="ImageUrl" placeholder="Enter slider Image Url">
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" asp-controller="Service" asp-action="Create">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Title</label>
+                    <input class="form-control" id="formGroupExampleInput" asp-for="Title" placeholder="Enter slider Title">
+                    <span asp-validation-for="Title" class="text-danger" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Description</label>
+                    <input class="form-control" id="formGroupExampleInput2" asp-for="Description" placeholder="Enter slider Description">
+                    <span asp-validation-for="Description" class="text-danger" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput3">Image Url</label>
+                    <input class="form-control" id="formGroupExampleInput3" asp-for="ImageUrl" placeholder="Enter slider Image Url">
+                    <span asp-validation-for="ImageUrl" class="text-danger" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+        </div>
     </div>
 </div>
