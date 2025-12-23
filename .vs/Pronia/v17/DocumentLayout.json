@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\ASUS\\Desktop\\Pronia\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A0F34CCB-0E9A-4A61-8E4E-B243033CB1E1}|Pronia\\Pronia.csproj|c:\\users\\asus\\desktop\\pronia\\pronia\\areas\\admin\\controllers\\servicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0F34CCB-0E9A-4A61-8E4E-B243033CB1E1}|Pronia\\Pronia.csproj|solutionrelative:pronia\\areas\\admin\\controllers\\servicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A0F34CCB-0E9A-4A61-8E4E-B243033CB1E1}|Pronia\\Pronia.csproj|c:\\users\\asus\\desktop\\pronia\\pronia\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0F34CCB-0E9A-4A61-8E4E-B243033CB1E1}|Pronia\\Pronia.csproj|solutionrelative:pronia\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0F34CCB-0E9A-4A61-8E4E-B243033CB1E1}|Pronia\\Pronia.csproj|c:\\users\\asus\\desktop\\pronia\\pronia\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A0F34CCB-0E9A-4A61-8E4E-B243033CB1E1}|Pronia\\Pronia.csproj|solutionrelative:pronia\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,19 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\Pronia\\Pronia\\appsettings.json",
+              "RelativeDocumentMoniker": "Pronia\\appsettings.json",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\Pronia\\Pronia\\appsettings.json",
+              "RelativeToolTip": "Pronia\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-23T18:23:16.111Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ServiceController.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\Pronia\\Pronia\\Areas\\Admin\\Controllers\\ServiceController.cs",
-              "RelativeDocumentMoniker": "Pronia\\Areas\\Admin\\Controllers\\ServiceController.cs",
-              "ToolTip": "C:\\Users\\ASUS\\Desktop\\Pronia\\Pronia\\Areas\\Admin\\Controllers\\ServiceController.cs",
-              "RelativeToolTip": "Pronia\\Areas\\Admin\\Controllers\\ServiceController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAYwD0AAAAaAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\ASUS\\Desktop\\Pronia\\Pronia\\Program.cs",
+              "RelativeDocumentMoniker": "Pronia\\Program.cs",
+              "ToolTip": "C:\\Users\\ASUS\\Desktop\\Pronia\\Pronia\\Program.cs",
+              "RelativeToolTip": "Pronia\\Program.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBYAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-23T18:08:33.876Z",
+              "WhenOpened": "2025-12-23T18:21:25.528Z",
               "EditorCaption": ""
             }
           ]
