@@ -28,7 +28,7 @@
                                 <img src="~/assets/images/website-images/@service.ImageUrl" alt="Service Image" />
                             </td>
                             <td>
-                                <a class="btn btn-warning btn-sm">Update</a>
+                                <a asp-action="Update" asp-route-id="@service.Id" class="btn btn-warning btn-sm">Update</a>
                                 <a asp-action="Delete" asp-route-id="@service.Id" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>

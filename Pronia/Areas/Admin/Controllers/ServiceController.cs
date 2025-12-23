@@ -41,4 +41,40 @@ public class ServiceController(AppDbContext _context) : Controller
         _context.SaveChanges();
         return RedirectToAction(nameof(Index));
     }
+
+
+    public IActionResult Update(int id)
+    {
+        var service = _context.Services.Find(id);
+        if (service is null)
+        {
+            return NotFound();
+        }
+
+        return View(service);
+    }
+
+    [HttpPost]
+    public IActionResult Update(Service service)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View();
+        }
+
+        var existService = _context.Services.Find(service.Id);
+        if (existService is null)
+        {
+            return NotFound();
+        }
+
+        existService.Title = service.Title;
+        existService.Description = service.Description;
+        existService.ImageUrl = service.ImageUrl;
+
+        _context.Services.Update(existService);
+        _context.SaveChanges();
+
+        return RedirectToAction(nameof(Index));
+    }
 }
