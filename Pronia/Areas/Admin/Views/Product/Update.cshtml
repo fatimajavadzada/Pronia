@@ -1,0 +1,60 @@
+﻿@model Product
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post">
+                <div class="text-danger" asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Name</label>
+                    <input class="form-control" id="formGroupExampleInput" asp-for="@Model.Name" placeholder="Enter product Name">
+                    <span asp-validation-for="@Model.Name" class="text-danger" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput1">Description</label>
+                    <input class="form-control" id="formGroupExampleInput" asp-for="@Model.Description" placeholder="Enter product Description">
+                    <span asp-validation-for="@Model.Description" class="text-danger" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Main Image Url</label>
+                    <input class="form-control" id="formGroupExampleInput3" asp-for="@Model.MainImagePath" placeholder="Enter product Main Image Url">
+                    <span asp-validation-for="@Model.MainImagePath" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput3">Hover Image Url</label>
+                    <input class="form-control" id="formGroupExampleInput3" asp-for="@Model.HoverImagePath" placeholder="Enter product Hover Image Url">
+                    <span asp-validation-for="@Model.HoverImagePath" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput4">Price</label>
+                    <input class="form-control" id="formGroupExampleInput2" asp-for="@Model.Price" placeholder="Enter product Price">
+                    <span asp-validation-for="@Model.Price" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput5">SKU</label>
+                    <input class="form-control" id="formGroupExampleInput4" asp-for="@Model.SKU" placeholder="Enter product SKU">
+                    <span asp-validation-for="@Model.SKU" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput6">Category Id</label>
+                    <select asp-for="CategoryId">
+                        @foreach (Category category in ViewBag.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-primary">Cancel</a>
+                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

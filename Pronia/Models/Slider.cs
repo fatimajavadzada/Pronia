@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pronia.Models.Common;
 using System.ComponentModel.DataAnnotations;
 
 namespace Pronia.Models;
 
-public class Slider
+public class Slider : BaseEntity
 {
-    public int Id { get; set; }
     [Required]
     [MaxLength(100)]
     public string Title { get; set; }
@@ -13,7 +13,7 @@ public class Slider
     [MaxLength(512), MinLength(3)]
     [Required]
     public string ImageUrl { get; set; }
-    [Range(0,100)]
+    [Range(0, 100)]
     [Precision(10, 2)]
     public decimal DiscountPercentage { get; set; }
 }
