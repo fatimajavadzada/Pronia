@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model List<ProductGetVM>
 
 <div class="container my-3">
     <div class="row">
@@ -23,11 +23,11 @@
                         <tr>
                             <th scope="row">@product.Id</th>
                             <td>
-                                <img src="~/assets/images/website-images/@product.MainImagePath" alt="Alternate Text" />
+                                <img src="~/assets/images/website-images/@product.HoverImageUrl" alt="Alternate Text" />
                             </td>
                             <td>@product.Name</td>
                             <td>@product.Price</td>
-                            <td>@product.Category.Name</td>
+                            <td>@product.CategoryName</td>
                             <td>
                                 <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-warning">Update</a>
                                 <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger deleteBtn">Delete</a>

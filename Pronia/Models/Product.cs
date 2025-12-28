@@ -19,6 +19,6 @@ public class Product : BaseEntity
     public string? SKU { get; set; }
     [Required]
     public int CategoryId { get; set; }
-    public Category? Category { get; set; }
+    public Category Category { get; set; }
 }
 
