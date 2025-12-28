@@ -13,6 +13,7 @@
                         <th scope="col">MainImage</th>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
+                        <th scope="col">Rating</th>
                         <th scope="col">Category Name</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -27,6 +28,7 @@
                             </td>
                             <td>@product.Name</td>
                             <td>@product.Price</td>
+                            <td>@product.Rating</td>
                             <td>@product.CategoryName</td>
                             <td>
                                 <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-warning">Update</a>

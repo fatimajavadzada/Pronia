@@ -20,5 +20,7 @@ public class Product : BaseEntity
     [Required]
     public int CategoryId { get; set; }
     public Category Category { get; set; }
+    [Range(1,5)]
+    public int Rating { get; set; }
 }
 

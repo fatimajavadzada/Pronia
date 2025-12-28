@@ -42,6 +42,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="formGroupExampleInput5">Rating</label>
+                    <input class="form-control" id="formGroupExampleInput4" asp-for="Rating" placeholder="Enter product SKU">
+                    <span asp-validation-for="Rating" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
                     <label for="formGroupExampleInput6">Category Id</label>
                     <select asp-for="CategoryId">
                         @foreach(Category category in ViewBag.Categories)

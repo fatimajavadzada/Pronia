@@ -16,6 +16,7 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
             Name = x.Name,
             Price = x.Price,
             Description = x.Description,
+            Rating = x.Rating,
             SKU = x.SKU,
             CategoryName = x.Category.Name,
             MainImageUrl = x.MainImagePath,
@@ -86,6 +87,7 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
             Description = vm.Description,
             Price = vm.Price,
             SKU = vm.SKU,
+            Rating = vm.Rating,
             MainImagePath = mainImageUniqueName,
             HoverImagePath = hoverImageUniqueName,
         };
@@ -113,6 +115,7 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
             CategoryId = product.CategoryId,
             Description = product.Description,
             Price = product.Price,
+            Rating= product.Rating,
             SKU = product.SKU,
         };
 
@@ -173,6 +176,7 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
         existProduct.Description = vm.Description;
         existProduct.Price = vm.Price;
         existProduct.SKU = vm.SKU;
+        existProduct.Rating = vm.Rating;
         existProduct.CategoryId = vm.CategoryId;
 
         string folderPath = Path.Combine(_environment.WebRootPath, "assets", "images", "website-images");

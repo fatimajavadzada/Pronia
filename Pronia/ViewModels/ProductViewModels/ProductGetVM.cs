@@ -10,5 +10,6 @@
         public string CategoryName { get; set; }
         public string MainImageUrl { get; set; }
         public string HoverImageUrl { get; set; }
+        public int Rating { get; set; }
     }
 }
