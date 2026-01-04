@@ -22,5 +22,8 @@ public class Product : BaseEntity
     public Category Category { get; set; }
     [Range(1,5)]
     public int Rating { get; set; }
+    public ICollection<ProductTag> ProductTags { get; set; } = [];
+    public ICollection<ProductBrand> ProductBrands { get; set; } = [];
+    public ICollection<ProductImage> ProductImages { get; set; } = [];
 }
 

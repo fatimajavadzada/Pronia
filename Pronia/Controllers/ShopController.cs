@@ -22,5 +22,30 @@ namespace Pronia.Controllers
             }).ToList();
             return View(products);
         }
+
+        public IActionResult Detail(int id)
+        {
+            var product = _context.Products.Select(x => new ProductGetVM()
+            {
+                Id = x.Id,
+                CategoryName = x.Category.Name,
+                Description = x.Description,
+                Name = x.Name,
+                HoverImageUrl = x.HoverImagePath,
+                MainImageUrl = x.MainImagePath,
+                Price = x.Price,
+                SKU = x.SKU,
+                Rating = x.Rating,
+                TagNames = x.ProductTags.Select(x => x.Tag.Name).ToList(),
+                BrandNames = x.ProductBrands.Select(x => x.Brand.Name).ToList()
+            }).FirstOrDefault(x => x.Id == id);
+
+            if (product is null)
+            {
+                return NotFound();
+            }
+
+            return View(product);
+        }
     }
 }

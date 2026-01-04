@@ -24,13 +24,14 @@
                         <tr>
                             <th scope="row">@product.Id</th>
                             <td>
-                                <img src="~/assets/images/website-images/@product.HoverImageUrl" alt="Alternate Text" />
+                                <img src="~/assets/images/website-images/@product.MainImageUrl" alt="Alternate Text" />
                             </td>
                             <td>@product.Name</td>
                             <td>@product.Price</td>
                             <td>@product.Rating</td>
                             <td>@product.CategoryName</td>
                             <td>
+                                <a asp-action="Detail" asp-route-id="@product.Id" class="btn btn-primary">Detail</a>
                                 <a asp-action="Update" asp-route-id="@product.Id" class="btn btn-warning">Update</a>
                                 <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger deleteBtn">Delete</a>
                             </td>

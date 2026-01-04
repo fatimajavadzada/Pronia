@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Pronia.Contexts;
 using Pronia.Helpers;
+using Pronia.Models;
 using Pronia.ViewModels.ProductViewModels;
 
 namespace Pronia.Areas.Admin.Controllers;
@@ -28,7 +29,7 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
     [HttpGet]
     public IActionResult Create()
     {
-        SendCategoriesWithViewBag();
+        SendItemsWithViewBag();
         return View();
     }
 
@@ -38,7 +39,7 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
     {
         if (!ModelState.IsValid)
         {
-            SendCategoriesWithViewBag();
+            SendItemsWithViewBag();
             return View(vm);
         }
 
@@ -66,13 +67,52 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
             return View(vm);
         }
 
+        foreach (var image in vm.Images)
+        {
+            if (!image.CheckType("image"))
+            {
+                ModelState.AddModelError("Images", "Image format is required!");
+                return View(vm);
+            }
+
+            if (!image.CheckSize(2))
+            {
+                ModelState.AddModelError("Images", "Image size cannot be greater than 2 MB!");
+                return View(vm);
+            }
+        }
+
         var isExistCategory = _context.Categories.Any(x => x.Id == vm.CategoryId);
 
         if (!isExistCategory)
         {
-            SendCategoriesWithViewBag();
+            SendItemsWithViewBag();
             ModelState.AddModelError("", "Category is not found!");
             return View(vm);
+        }
+
+        foreach (var tagId in vm.TagIds)
+        {
+            var isExistTag = _context.Tags.Any(x => x.Id == tagId);
+
+            if (!isExistTag)
+            {
+                SendItemsWithViewBag();
+                ModelState.AddModelError("", "Tag is not found!");
+                return View(vm);
+            }
+        }
+
+        foreach (var brandId in vm.BrandIds)
+        {
+            var isExistBrand = _context.Brands.Any(x => x.Id == brandId);
+
+            if (!isExistBrand)
+            {
+                SendItemsWithViewBag();
+                ModelState.AddModelError("", "Brand is not found!");
+                return View(vm);
+            }
         }
 
         string folderPath = Path.Combine(_environment.WebRootPath, "assets", "images", "website-images");
@@ -90,7 +130,41 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
             Rating = vm.Rating,
             MainImagePath = mainImageUniqueName,
             HoverImagePath = hoverImageUniqueName,
+            ProductTags = [],
+            ProductBrands = [],
+            ProductImages = []
         };
+
+        foreach (var image in vm.Images)
+        {
+            string imageUniqueName = image.SaveFile(folderPath);
+            ProductImage productImage = new ProductImage()
+            {
+                ImageUrl = imageUniqueName,
+                Product = product
+            };
+            product.ProductImages.Add(productImage);
+        }
+
+        foreach (var tagId in vm.TagIds)
+        {
+            ProductTag productTag = new ProductTag()
+            {
+                TagId = tagId,
+                Product = product
+            };
+            product.ProductTags.Add(productTag);
+        }
+
+        foreach (var brandId in vm.BrandIds)
+        {
+            ProductBrand productBrand = new ProductBrand()
+            {
+                BrandId = brandId,
+                Product = product
+            };
+            product.ProductBrands.Add(productBrand);
+        }
 
         _context.Products.Add(product);
         _context.SaveChanges();
@@ -99,9 +173,9 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
 
     public IActionResult Update(int id)
     {
-        SendCategoriesWithViewBag();
+        SendItemsWithViewBag();
 
-        var product = _context.Products.Find(id);
+        var product = _context.Products.Include(x => x.ProductTags).Include(x => x.ProductBrands).Include(x => x.ProductImages).FirstOrDefault(x => x.Id == id);
 
         if (product == null)
         {
@@ -115,8 +189,14 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
             CategoryId = product.CategoryId,
             Description = product.Description,
             Price = product.Price,
-            Rating= product.Rating,
+            Rating = product.Rating,
             SKU = product.SKU,
+            TagIds = product.ProductTags.Select(x => x.TagId).ToList(),
+            BrandIds = product.ProductBrands.Select(x => x.BrandId).ToList(),
+            MainImagePath = product.MainImagePath,
+            HoverImagePath = product.HoverImagePath,
+            ImageUrls = product.ProductImages.Select(x => x.ImageUrl).ToList(),
+            ImageIds = product.ProductImages.Select(x => x.Id).ToList(),
         };
 
         return View(vm);
@@ -128,11 +208,11 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
     {
         if (!ModelState.IsValid)
         {
-            SendCategoriesWithViewBag();
+            SendItemsWithViewBag();
             return View(vm);
         }
 
-        var existProduct = _context.Products.Find(vm.Id);
+        var existProduct = _context.Products.Include(x => x.ProductTags).Include(x => x.ProductBrands).Include(x => x.ProductImages).FirstOrDefault(x => x.Id == vm.Id);
 
         if (existProduct is null)
         {
@@ -143,10 +223,35 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
 
         if (!isExistCategory)
         {
-            SendCategoriesWithViewBag();
+            SendItemsWithViewBag();
             ModelState.AddModelError("CategoryId", "Category is not found!");
             return View(vm);
         }
+
+        foreach (var tagId in vm.TagIds)
+        {
+            var isExistTag = _context.Tags.Any(x => x.Id == tagId);
+
+            if (!isExistTag)
+            {
+                SendItemsWithViewBag();
+                ModelState.AddModelError("", "Tag is not found!");
+                return View(vm);
+            }
+        }
+
+        foreach (var brandId in vm.BrandIds)
+        {
+            var isExistBrand = _context.Brands.Any(x => x.Id == brandId);
+
+            if (!isExistBrand)
+            {
+                SendItemsWithViewBag();
+                ModelState.AddModelError("", "Brand is not found!");
+                return View(vm);
+            }
+        }
+
 
         if (!vm.MainImage?.CheckType("image") ?? false)
         {
@@ -170,6 +275,21 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
         {
             ModelState.AddModelError("HoverImage", "Image size cannot be greater than 2 MB!");
             return View(vm);
+        }
+
+        foreach (var image in vm.Images)
+        {
+            if (!image.CheckType("image"))
+            {
+                ModelState.AddModelError("Images", "Image format is required!");
+                return View(vm);
+            }
+
+            if (!image.CheckSize(2))
+            {
+                ModelState.AddModelError("Images", "Image size cannot be greater than 2 MB!");
+                return View(vm);
+            }
         }
 
         existProduct.Name = vm.Name;
@@ -205,6 +325,55 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
             existProduct.HoverImagePath = newHoverImageName;
         }
 
+        existProduct.ProductTags = [];
+        existProduct.ProductBrands = [];
+
+        foreach (var tagId in vm.TagIds)
+        {
+            ProductTag productTag = new ProductTag()
+            {
+                TagId = tagId,
+                ProductId = existProduct.Id
+            };
+            existProduct.ProductTags.Add(productTag);
+        }
+
+        foreach (var brandId in vm.BrandIds)
+        {
+            ProductBrand productBrand = new ProductBrand()
+            {
+                BrandId = brandId,
+                ProductId = existProduct.Id
+            };
+            existProduct.ProductBrands.Add(productBrand);
+        }
+
+        foreach (var productImage in existProduct.ProductImages.ToList())
+        {
+            var isExistImage = vm.ImageIds.Any(x => x == productImage.Id);
+
+            if (isExistImage == false)
+            {
+                existProduct.ProductImages.Remove(productImage);
+
+                if (System.IO.File.Exists(Path.Combine(folderPath, productImage.ImageUrl)))
+                {
+                    System.IO.File.Delete(Path.Combine(folderPath, productImage.ImageUrl));
+                }
+            }
+        }
+
+        foreach (var image in vm.Images)
+        {
+            string imageUniqueName = image.SaveFile(folderPath);
+            ProductImage productImage = new ProductImage()
+            {
+                ImageUrl = imageUniqueName,
+                ProductId = existProduct.Id
+            };
+            existProduct.ProductImages.Add(productImage);
+        }
+
         _context.Products.Update(existProduct);
         _context.SaveChanges();
 
@@ -213,7 +382,7 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
 
     public IActionResult Delete(int id)
     {
-        var product = _context.Products.Find(id);
+        var product = _context.Products.Include(x => x.ProductImages).FirstOrDefault(x => x.Id == id);
 
         if (product is null)
         {
@@ -235,12 +404,52 @@ public class ProductController(AppDbContext _context, IWebHostEnvironment _envir
             System.IO.File.Delete(Path.Combine(folderPath, product.HoverImagePath));
         }
 
+        foreach (var productImage in product.ProductImages)
+        {
+            if (System.IO.File.Exists(Path.Combine(folderPath, productImage.ImageUrl)))
+            {
+                System.IO.File.Delete(Path.Combine(folderPath, productImage.ImageUrl));
+            }
+        }
+
         return RedirectToAction(nameof(Index));
     }
 
-    private void SendCategoriesWithViewBag()
+    public IActionResult Detail(int id)
+    {
+        var product = _context.Products.Select(x => new ProductGetVM()
+        {
+            Id = x.Id,
+            CategoryName = x.Category.Name,
+            Description = x.Description,
+            Name = x.Name,
+            HoverImageUrl = x.HoverImagePath,
+            MainImageUrl = x.MainImagePath,
+            Price = x.Price,
+            SKU = x.SKU,
+            Rating = x.Rating,
+            TagNames = x.ProductTags.Select(x => x.Tag.Name).ToList(),
+            BrandNames = x.ProductBrands.Select(x => x.Brand.Name).ToList(),
+            ImageUrls = x.ProductImages.Select(x => x.ImageUrl).ToList(),
+        }).FirstOrDefault(x => x.Id == id);
+
+        if (product is null)
+        {
+            return NotFound();
+        }
+
+        return View(product);
+    }
+
+    private void SendItemsWithViewBag()
     {
         var categories = _context.Categories.ToList();
         ViewBag.Categories = categories;
+
+        var tags = _context.Tags.ToList();
+        ViewBag.Tags = tags;
+
+        var brands = _context.Brands.ToList();
+        ViewBag.Brands = brands;
     }
 }

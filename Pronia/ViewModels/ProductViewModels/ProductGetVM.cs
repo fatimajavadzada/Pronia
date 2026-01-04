@@ -11,5 +11,9 @@
         public string MainImageUrl { get; set; }
         public string HoverImageUrl { get; set; }
         public int Rating { get; set; }
+
+        public List<string> TagNames { get; set; }
+        public List<string> BrandNames { get; set; }
+        public List<string> ImageUrls { get; set; }
     }
 }

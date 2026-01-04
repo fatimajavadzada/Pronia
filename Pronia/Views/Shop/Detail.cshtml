@@ -1,0 +1,78 @@
+﻿@model ProductGetVM
+<div class="container my-5">
+    <div class="row">
+
+        <!-- Images -->
+
+
+        <div class="col-md-5">
+            <img src="~/assets/images/website-images/@Model.MainImageUrl" class="img-fluid rounded mb-3" alt="@Model.Name">
+
+            <img src="~/assets/images/website-images/@Model.HoverImageUrl" class="img-fluid rounded" alt="@Model.Name">
+        </div>
+
+        <!-- Product Info -->
+        <div class="col-md-7">
+            <h2 class="mb-3">@Model.Name</h2>
+
+            <p class="text-muted">@Model.Description</p>
+
+            <h4 class="text-success mb-3">
+                @Model.Price.ToString("0.00") ₼
+            </h4>
+
+            <p>
+                <strong>SKU:</strong> @Model.SKU
+            </p>
+            <p>
+                <strong>Description:</strong> @Model.Description
+            </p>
+
+            <p>
+                <strong>Category:</strong> @Model.CategoryName
+            </p>
+
+            <!-- Rating -->
+            <div class="rating-box d-flex align-items-center gap-1">
+                <strong>Rating:</strong>
+                <ul class="list-unstyled d-flex align-items-center gap-1 mb-0">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= Model.Rating)
+                        {
+                            <li>
+                                <i class="fa fa-star text-warning"></i>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <i class="fa fa-star text-secondary"></i>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+
+
+            <!-- Tags -->
+            <div class="mb-3">
+                <strong>Tags:</strong><br />
+                @foreach (var tagName in Model.TagNames)
+                {
+                    <span class="badge bg-primary me-1">@tagName</span>
+                }
+            </div>
+
+            <!-- Brands -->
+            <div class="mb-3">
+                <strong>Brands:</strong><br />
+                @foreach (var brandName in Model.BrandNames)
+                {
+                    <span class="badge bg-primary me-1">@brandName</span>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -18,15 +18,55 @@
                 </div>
 
                 <div class="form-group">
+                    <img src="~/assets/images/website-images/@Model.MainImagePath"
+                         class="img-thumbnail d-block mb-1"
+                         style="width: 80px;" />
+                    <input type="hidden" asp-for="MainImagePath" />
                     <label for="formGroupExampleInput2">Main Image Url</label>
                     <input class="form-control" id="formGroupExampleInput3" asp-for="MainImage" placeholder="Enter product Main Image Url">
                     <span asp-validation-for="MainImage" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
                 </div>
 
                 <div class="form-group">
+                    <img src="~/assets/images/website-images/@Model.HoverImagePath"
+                         class="img-thumbnail d-block mb-1"
+                         style="width: 80px;" />
+                    <input type="hidden" asp-for="HoverImagePath" />
                     <label for="formGroupExampleInput3">Hover Image Url</label>
                     <input class="form-control" id="formGroupExampleInput3" asp-for="HoverImage" placeholder="Enter product Hover Image Url">
                     <span asp-validation-for="HoverImage" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="d-flex flex-wrap gap-2">
+                        @for (int i = 0; i < Model.ImageUrls.Count; i++)
+                        {
+                            string imageUrl = Model.ImageUrls[i];
+
+                            <div class="position-relative d-inline-block me-2 mb-2">
+
+                                <!-- Image -->
+                                <img src="~/assets/images/website-images/@imageUrl"
+                                     class="img-thumbnail shadow-sm"
+                                     style="width: 80px; height: 80px;" />
+
+                                <!-- X icon (kvadrat, sağ üst künc) -->
+                                <button type="button"
+                                        class="removeBtn btn btn-danger btn-sm position-absolute top-0 end-0"
+                                        style="width: 20px; height: 20px; line-height: 1; padding: 0; font-size: 14px;">
+                                    &times;
+                                </button>
+
+                                <!-- Hidden input -->
+                                <input type="hidden" asp-for="ImageUrls" value="@imageUrl" />
+                                <input type="hidden" asp-for="ImageIds" value="@Model.ImageIds[i]" />
+                            </div>
+                        }
+                    </div>
+
+                    <label for="formGroupExampleInput3">Images</label>
+                    <input class="form-control" id="formGroupExampleInput3" asp-for="Images" placeholder="Enter product Hover Image Url">
+                    <span asp-validation-for="Images" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
                 </div>
 
                 <div class="form-group">
@@ -58,9 +98,41 @@
                     <span asp-validation-for="CategoryId" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
                 </div>
 
+                <div class="form-group">
+                    <label for="formGroupExampleInput6">Tags</label>
+                    <select asp-for="TagIds">
+                        @foreach (Tag tag in ViewBag.Tags)
+                        {
+                            <option value="@tag.Id">@tag.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="TagIds" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="formGroupExampleInput6">Brands</label>
+                    <select asp-for="BrandIds">
+                        @foreach (Brand brand in ViewBag.Brands)
+                        {
+                            <option value="@brand.Id">@brand.Name</option>
+                        }
+                    </select>
+                    <span asp-validation-for="BrandIds" class="text-danger d-block" style="font-size: 0.875rem; font-weight: bold; padding-top: 5px;"></span>
+                </div>
+
                 <a asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-primary">Cancel</a>
                 <button type="submit" class="btn btn-primary btn-block">Submit</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    const removeButtons = document.querySelectorAll(".removeBtn")
+    removeButtons.forEach(btn=>{
+        btn.addEventListener("click", (e)=>{
+            e.preventDefault();
+            btn.parentElement.remove();
+        })
+    })
+</script>
