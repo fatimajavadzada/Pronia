@@ -7,7 +7,6 @@ public class RegisterVM
     [Required, MaxLength(32), MinLength(3)]
     public string FirstName { get; set; } = string.Empty;
     [Required, MaxLength(32), MinLength(3)]
-
     public string LastName { get; set; } = string.Empty;
     [Required, MaxLength(256), MinLength(3)]
     public string UserName { get; set; } = string.Empty;
