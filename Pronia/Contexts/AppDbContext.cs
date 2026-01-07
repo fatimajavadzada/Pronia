@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace Pronia.Contexts
 {
@@ -10,6 +11,14 @@ namespace Pronia.Contexts
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(builder);
+        }
+
+
 
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Service> Services { get; set; }
