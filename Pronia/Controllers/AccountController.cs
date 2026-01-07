@@ -37,7 +37,8 @@ namespace Pronia.Controllers
 
             AppUser appUser = new AppUser()
             {
-                FullName = vm.FirstName + " " + vm.LastName,
+                FirstName = vm.FirstName,
+                LastName = vm.LastName,
                 UserName = vm.UserName,
                 Email = vm.EmailAddress
             };
@@ -124,11 +125,12 @@ namespace Pronia.Controllers
             {
                 AppUser adminUser = new AppUser()
                 {
-                    FullName = adminUserVM.FullName,
+                    FirstName = adminUserVM.FirstName,
+                    LastName = adminUserVM.LastName,
                     Email = adminUserVM.Email,
                     UserName = adminUserVM.UserName,
                 };
-                await _userManager.CheckPasswordAsync(adminUser, adminUserVM.Password);
+                await _userManager.CreateAsync(adminUser, adminUserVM.Password);
                 await _userManager.AddToRoleAsync(adminUser, "Admin");
             }
 
@@ -136,11 +138,12 @@ namespace Pronia.Controllers
             {
                 AppUser moderatorUser = new AppUser()
                 {
-                    FullName = moderatorUserVM.FullName,
+                    FirstName = moderatorUserVM.FirstName,
+                    LastName = moderatorUserVM.LastName,
                     Email = moderatorUserVM.Email,
                     UserName = moderatorUserVM.UserName,
                 };
-                await _userManager.CheckPasswordAsync(moderatorUser, moderatorUserVM.Password);
+                await _userManager.CreateAsync(moderatorUser, moderatorUserVM.Password);
                 await _userManager.AddToRoleAsync(moderatorUser, "Moderator");
             }
 
