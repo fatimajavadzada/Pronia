@@ -29,5 +29,6 @@ namespace Pronia.Contexts
         public DbSet<ProductTag> ProductTags { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ProductBrand> ProductBrands { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
     }
 }

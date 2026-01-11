@@ -14,6 +14,7 @@ public class Program
 
         builder.Services.AddControllersWithViews();
 
+        builder.Services.AddScoped<IBasketService, BasketService>();
         builder.Services.AddScoped<IEmailService, EmailService>();
 
         builder.Services.AddDbContext<AppDbContext>(opt =>
